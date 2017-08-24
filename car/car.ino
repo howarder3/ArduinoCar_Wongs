@@ -77,7 +77,7 @@ int check_distance()
     Serial.print("distance = ");
     Serial.print(distance);
     Serial.println(" cm");  
-    if(distance < 10)
+    if(distance < 20)
         return 1;
     else
         return 0;
