@@ -138,6 +138,8 @@ void speedup()
     speed*=2;
     if(speed>=255)
       speed = 255;
+    analogWrite(EN_A, speed);    //輸出 PWM 脈衝到 ENA
+    analogWrite(EN_B, speed);    //輸出 PWM 脈衝到 ENB   
 }
 
 void speeddown()
@@ -145,6 +147,8 @@ void speeddown()
     speed/=2;
     if(speed <= 64)
       speed = 64;
+    analogWrite(EN_A, speed);    //輸出 PWM 脈衝到 ENA
+    analogWrite(EN_B, speed);    //輸出 PWM 脈衝到 ENB   
 }
 
 void setup() 
