@@ -14,6 +14,9 @@
 #define EN_A 10
 #define EN_B 11
 
+#define echo_switch 13
+//define bluetooth_switch 13
+
 int speed;
 int safe_flag;
 
@@ -57,7 +60,7 @@ void car_control()
               speeddown();
               break;      
             case '6': //stop
-              stop();
+              mystop();
               break;      
           }
     }
@@ -124,7 +127,7 @@ void right()
     digitalWrite(IN_4, LOW);
 }
 
-void stop()
+void mystop()
 {
     digitalWrite(IN_1, LOW);
     digitalWrite(IN_2, LOW);
@@ -156,8 +159,10 @@ void setup()
     Serial.begin(9600);
     Serial.println(" ");
     
-    pinMode (trig, OUTPUT);
-    pinMode (echo, INPUT);
+    pinMode(echo_switch, OUTPUT);
+    pinMode(trig, OUTPUT);
+    pinMode(echo, INPUT);
+    digitalWrite(echo_switch, LOW);
     Serial.println("PING is ready!");
     
     pinMode(IN_1 , OUTPUT);
@@ -166,12 +171,17 @@ void setup()
     pinMode(IN_4 , OUTPUT);
     pinMode(EN_A , OUTPUT);
     pinMode(EN_B , OUTPUT);
+      
+    /*pinMode(bluetooth_switch, OUTPUT);
+    digitalWrite(bluetooth_switch, HIGH);
+    BT.begin(9600);
+    Serial.println("Bluetooth is ready!");*/
+    
     safe_flag = 1;
-    stop();
+    mystop();
     Serial.println("CAR is ready!");
 
-    BT.begin(9600);
-    Serial.println("Bluetooth is ready!");
+
     
 }
 
@@ -187,7 +197,7 @@ void loop()
     {   
       if(safe_flag == 0)
       {
-         stop();
+         mystop();
          safe_flag = 1;
       }
        car_control();
